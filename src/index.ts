@@ -1,12 +1,10 @@
-import dotenv from 'dotenv';
 import log4js from 'log4js';
 import Discord from 'discord.js';
 import MessageEvent from './events/MessageEvent';
+import config from './config';
 
 export const logger = log4js.getLogger();
 export const client = new Discord.Client();
-
-dotenv.config();
 
 log4js.configure({
   appenders: {
@@ -35,4 +33,4 @@ client.on('ready', () => {
 
 MessageEvent();
 
-client.login(process.env.BOT_TOKEN);
+client.login(config.BOT_TOKEN);
