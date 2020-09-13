@@ -1,7 +1,9 @@
 import dotenv from 'dotenv';
 import log4js from 'log4js';
+import Discord from 'discord.js';
 
 export const logger = log4js.getLogger();
+export const client = new Discord.Client();
 
 dotenv.config();
 
@@ -25,3 +27,9 @@ log4js.configure({
   }
 });
 logger.level = 'ALL';
+
+client.on('ready', () => {
+  logger.info('Matawetle bot logged successfully');
+});
+
+client.login(process.env.BOT_TOKEN);
