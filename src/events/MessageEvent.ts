@@ -14,7 +14,7 @@ const MessageEvent = (): void => {
 
       if (!command) return;
 
-      command.run(args);
+      command.run(msg, args);
     }
 
     if (!config.IS_LOGGING_MESSAGE) return;
