@@ -19,13 +19,16 @@ const MessageEvent = (): void => {
 
     if (!config.IS_LOGGING_MESSAGE) return;
 
+    let { username } = msg.author;
+    if (msg.author.bot) username += '(bot)';
+
     if (msg.channel.type === 'dm') {
-      logger.info(`[DM] @${msg.author.username} : ${msg.content}`);
+      logger.info(`[DM] @${username} : ${msg.content}`);
       return;
     }
 
     const channelName = msg.guild?.channels.cache.get(msg.channel.id)?.name;
-    logger.info(`[${msg.guild?.name}#${channelName}] @${msg.author.username} : ${msg.content}`);
+    logger.info(`[${msg.guild?.name}#${channelName}] @${username} : ${msg.content}`);
   });
 };
 
