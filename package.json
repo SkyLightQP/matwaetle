@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^12.3.1",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "log4js": "^6.3.0"
   },
   "devDependencies": {
     "@types/node": "^14.10.0",
