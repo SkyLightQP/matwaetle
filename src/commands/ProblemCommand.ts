@@ -1,21 +1,24 @@
-import Discord, { Message } from 'discord.js';
+import Discord, { Message, TextChannel } from 'discord.js';
 import CommandExecutor from '../interfaces/CommandExecutor';
+import config from '../config';
 
 class ProblemCommand implements CommandExecutor {
   alias: string[] = ['출제', '출'];
 
   name = 'problem';
 
-  run = (msg: Message, args: string[]): void => {
+  run = async (msg: Message, args: string[]): Promise<void> => {
     if (!msg.member?.hasPermission('ADMINISTRATOR')) return;
     if (args.length <= 0) {
-      msg.channel.send('명령어 사용방법이 잘못되었습니다.');
+      await msg.reply('명령어 사용방법이 잘못되었습니다.');
       return;
     }
 
-    const embed = new Discord.MessageEmbed()
-      .setTitle('asd')
-      .setColor('#009874');
+    const chan = msg.guild?.channels.cache.get(config.CHANNEL_ID) as TextChannel;
+    if (chan === undefined) {
+      await msg.reply('채널을 찾을 수 없습니다.');
+      return;
+    }
 
     const template = (n: string) => (
       `
@@ -24,11 +27,15 @@ class ProblemCommand implements CommandExecutor {
       `.trim()
     );
 
+    const embed = new Discord.MessageEmbed()
+      .setTitle('asd')
+      .setColor('#009874');
+
     args.forEach((text) => {
       embed.addField(`#${text} {NAME}`, template(text), false);
     });
 
-    msg.channel.send(embed);
+    await chan.send(embed);
   };
 }
 
